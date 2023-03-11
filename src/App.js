@@ -46,7 +46,8 @@ function App() {
       document.getElementById('input-task').value = "";
       return true;
     } catch (err) {
-      console.log(err)
+      console.log(err);
+      alert(err.reason);
       setLoading(false);
     }
   }

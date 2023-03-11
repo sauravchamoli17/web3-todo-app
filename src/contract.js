@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = "0x9EF7D988112d4a33a59CE8188C7a8BbA332CF25E";
+export const CONTRACT_ADDRESS = "0xb763Af66A4eEf85B8457762222e3E0A353843d2e";
 export const CONTRACT_ABI = [
 	{
 		"inputs": [
@@ -86,4 +86,4 @@ export const CONTRACT_ABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
