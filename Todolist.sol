@@ -22,13 +22,13 @@ contract TodoList {
     mapping (uint256 => TaskItem) public tasks;
     uint256 public count = 0;
 
-    function addTask(string calldata task) public {
+    function addTask(string calldata task) public onlyOwner {
        TaskItem memory item = TaskItem({task: task, isCompleted: false, timestamp: block.timestamp});
        tasks[count] = item;
        count++;
     }
 
-    function completeTask(uint256 id) public {
+    function completeTask(uint256 id) public onlyOwner {
        require(!tasks[id].isCompleted, "Task Already Completed.");
        tasks[id].isCompleted = true;
     }
