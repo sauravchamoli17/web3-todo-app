@@ -27,6 +27,7 @@ function App() {
             tasks.push(task)
           }
         }
+        tasks.reverse();
         setTasks(tasks);
       }
     } catch (err) {
@@ -38,9 +39,8 @@ function App() {
     try {
       setLoading(true);
       const newTask = await contract.addTask(inputTask)
-      // console.log(newTask);
       await newTask.wait();
-      setTasks(prev => [...prev, [inputTask, false]]);
+      await getTasks();
       setInputTask(null);
       setLoading(false);
       document.getElementById('input-task').value = "";
@@ -56,12 +56,9 @@ function App() {
     try {
       setLoading(true);
       const taskIndex = tasks.findIndex(a => a[0] === task)
-      // console.log("index ", taskIndex)
       const completeTask = await contract.completeTask(taskIndex)
-      // console.log(completeTask)
       let res = await completeTask.wait()
       const newTasks = tasks.filter(a => a[0] !== task)
-      // console.log(newTasks)
       setTasks(newTasks);
       setLoading(false);
       return true;
@@ -115,8 +112,8 @@ function App() {
                         </div>
                         <h2 className="text-xl">{taskItem[0]}</h2>
                         <p className="text-lg float-right text-green-500	">
-                          {new Date(taskItem[2].toNumber() * 1000).toDateString()}&nbsp;&nbsp;
-                          {new Date(taskItem[2].toNumber() * 1000).getHours()}:{new Date(taskItem[2].toNumber() * 1000).getMinutes()}:{new Date(taskItem[2].toNumber() * 1000).getSeconds()}
+                          {new Date(taskItem[2]?.toNumber() * 1000).toDateString()}&nbsp;&nbsp;
+                          {new Date(taskItem[2]?.toNumber() * 1000).getHours()}:{new Date(taskItem[2]?.toNumber() * 1000).getMinutes()}:{new Date(taskItem[2]?.toNumber() * 1000).getSeconds()}
                         </p>
                       </div>
                     )
@@ -126,7 +123,7 @@ function App() {
             })}
 
           {tasks.length > 0 &&
-            tasks.reverse().map((taskItem, i) => {
+            tasks.map((taskItem, i) => {
               return (
                 <div className="w-full" key={i}>
                   {
