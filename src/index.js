@@ -13,11 +13,10 @@ import { polygonMumbai } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
-
 const { chains, provider } = configureChains(
   [polygonMumbai],
   [
-    alchemyProvider({ apiKey: 'gPO9fCwuLeHK1Vg05EgDrYAjMNmUuwus' }),
+    alchemyProvider({ apiKey: process.env.ALCHEMY_PROVIDER_API_KEY }),
     publicProvider()
   ]
 );
